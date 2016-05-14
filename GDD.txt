@@ -1,0 +1,79 @@
+Title: 
+
+UnderTitle: "Gather, build, survive... or don't..."
+
+TargetGroup: People who like difficult survival games and don't give up
+	when times are getting hard.
+
+POV: 2.5D top-down
+
+Character: Human
+
+GamePlayType: RealTime
+
+Genre: post-apocalyptic survival
+
+Setting: post-apocalyptic futuristic/medieval
+
+Story: The year is 2083.
+	After a devastating war that destroyed civilization on planet earth,
+	there are only a few survivors left.
+	Ruins and mostly emptiness for miles on end.
+	You wake up, remember  what happened but not who you are.
+	Good luck surviving the wasteland…
+	The world is yours if you can take it.
+
+StartState: Wake up... don't remember who you are.
+	Random gear a farmer would equip.
+
+EndState: no end state (Open-world)
+
+Resources: Food, Drink, Fatigue, BodyTemperature, Optimism
+  Lose:
+    Food:
+      Constantly decreasing.
+      Faster when doing physical labor.
+      Faster when in cold temperatures.
+    Drink:
+      Constantly decreasing.
+      Faster when doing physical labor.
+      Faster when in hot temperatures.
+    Fatigue:
+      Constantly decreasing.
+      Faster when doing physical labor.
+      Faster when hungry.
+      Faster when thirsty.
+      Faster when low bodyTemperature.
+      Faster when low optimism.
+    BodyTemperature:
+      When in cold temperatures.
+      When hungry.
+    Optimism:
+      When hungry.
+      When thirsty.
+      When fatigued.
+      When low bodytemperature.
+      When in darkness.
+      When wounded.
+  Gain:
+    Food:
+      When eating.
+    Drink:
+      When drinking.
+    Fatigue:
+      When sleeping.
+      When resting.
+    BodyTemperature:
+      When in hot temperatures.
+      When near a heat source.
+      When consuming hot food/drinks.
+    Optimism:
+      When eating.
+      When drinking.
+      When well rested.
+      When in lightness.
+
+Interaction: Keyboard and mouse input.
+
+
+
