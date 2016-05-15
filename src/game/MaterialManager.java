@@ -28,6 +28,20 @@ public class MaterialManager {
             return tempMat;
         }
     }
+    public static Material loadMaterial(Texture2D tex) {
+        if (materialMap.containsKey(tex.getName())) {
+            return materialMap.get(tex.getName());
+        } else {
+            tempTex = tex;
+
+            tempMat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+            tempMat.setTexture("ColorMap", tempTex);
+
+            materialMap.put(tex.getName(), tempMat);
+
+            return tempMat;
+        }
+    }
 
     public static Texture2D loadTexture(String name) {
         if (TextureMap.containsKey(name)) {

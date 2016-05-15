@@ -7,7 +7,7 @@ import com.jme3.scene.control.AbstractControl;
 public class PlayerControl extends AbstractControl {
 
     public boolean up, down, left, right;
-    public float speed = 2f;
+    public float speed = 20f;
 
     @Override
     protected void controlUpdate(float tpf) {

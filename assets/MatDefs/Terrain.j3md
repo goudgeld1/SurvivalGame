@@ -1,0 +1,15 @@
+MaterialDef Simple {
+    MaterialParameters {
+        Texture2D FirstTexture;
+        Texture2D SecondTexture;
+        Texture2D MaskTexture;
+    }
+    Technique {
+        VertexShader GLSL100:   Shaders/Terrain.vert
+        FragmentShader GLSL100: Shaders/Terrain.frag
+
+        WorldParameters {
+            WorldViewProjectionMatrix
+        }
+    }
+}
