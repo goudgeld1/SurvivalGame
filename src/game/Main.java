@@ -2,76 +2,108 @@ package game;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.input.KeyInput;
+import com.jme3.input.MouseInput;
 import com.jme3.input.controls.ActionListener;
+import com.jme3.input.controls.AnalogListener;
 import com.jme3.input.controls.KeyTrigger;
-import com.jme3.light.AmbientLight;
+import com.jme3.input.controls.MouseAxisTrigger;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
-import com.jme3.scene.Geometry;
-import com.jme3.scene.Spatial;
-import com.jme3.scene.shape.Box;
 import com.jme3.system.AppSettings;
 import com.jme3.texture.Texture;
+import com.jme3.texture.Texture2D;
+import java.util.Map;
 
-public class Main extends SimpleApplication implements ActionListener {
+public class Main extends SimpleApplication implements ActionListener, AnalogListener {
 
     private static final String VERSION = "A0.0.1";
-    private Spatial player;
 
     @Override
     public void simpleInitApp() {
-        // Setup the 2D camera
-        //cam.setParallelProjection(true);
-        getFlyByCamera().setEnabled(false);
+
+        // Set the background color
+        viewPort.setBackgroundColor(ColorRGBA.Gray);
+        // Setup the MaterialManager
+        MaterialManager.assetManager = assetManager;
 
         // Create a player
-        player = Player.create(assetManager, settings, rootNode);
+        Player.create(rootNode);
+        rootNode.getChild("Player").addControl(new PlayerControl());
 
+        // Setup the camera
+        setupCamera();
 
-        /* A colored lit cube. Needs light source! */
-//        Box boxMesh = new Box(1f, 1f, 1f);
-//        Geometry boxGeo = new Geometry("Colored Box", boxMesh);
-//        Material boxMat = new Material(assetManager, "Common/MatDefs/Light/Lighting.j3md");
-//        boxMat.setBoolean("UseMaterialColors", true);
-//        boxMat.setColor("Ambient", ColorRGBA.Green);
-//        boxMat.setColor("Diffuse", ColorRGBA.Green);
-//        boxGeo.setMaterial(boxMat);
-//        rootNode.attachChild(boxGeo);
-        /** A white ambient light source. */ 
-        AmbientLight ambient = new AmbientLight();
-        ambient.setColor(ColorRGBA.White);
-        rootNode.addLight(ambient); 
-        
+        // Setup the input
+        setupInput();
 
+        // Generate terrain
+        Terrain.setup(rootNode);
+        Terrain.generateChunk(-1, -1);
+        Terrain.generateChunk(-1, 0);
+        Terrain.generateChunk(0, -1);
+        Terrain.generateChunk(0, 0);
 
-        // Set input TODO: Put in its own class
-        inputManager.addMapping("left", new KeyTrigger(KeyInput.KEY_A));
-        inputManager.addMapping("right", new KeyTrigger(KeyInput.KEY_D));
-        inputManager.addMapping("up", new KeyTrigger(KeyInput.KEY_W));
-        inputManager.addMapping("down", new KeyTrigger(KeyInput.KEY_S));
-        inputManager.addMapping("return", new KeyTrigger(KeyInput.KEY_RETURN));
-        inputManager.addListener(this, "left");
-        inputManager.addListener(this, "right");
-        inputManager.addListener(this, "up");
-        inputManager.addListener(this, "down");
-        inputManager.addListener(this, "return");
-
-        player.addControl(new PlayerControl());
+        rootNode.toString();
     }
 
-    public void onAction(String name, boolean isPressed, float tpf) {
-        //cam.setLocation(player.getWorldTranslation());
+    @Override
+    public void simpleUpdate(float tpf) {
+        cam.setLocation(new Vector3f(rootNode.getChild("Player").getWorldTranslation().getX() + 0.5f,
+                rootNode.getChild("Player").getWorldTranslation().getY() + 0.5f,
+                cam.getLocation().getZ()));
+    }
 
-        if (name.equals("up")) {
-            player.getControl(PlayerControl.class).up = isPressed;
-        } else if (name.equals("down")) {
-            player.getControl(PlayerControl.class).down = isPressed;
-        } else if (name.equals("left")) {
-            player.getControl(PlayerControl.class).left = isPressed;
-        } else if (name.equals("right")) {
-            player.getControl(PlayerControl.class).right = isPressed;
+    @Override
+    public void onAction(String name, boolean isPressed, float tpf) {
+        if (name.equals("PlayerLeft")) {
+            rootNode.getChild("Player").getControl(PlayerControl.class).left = isPressed;
         }
+        if (name.equals("PlayerRight")) {
+            rootNode.getChild("Player").getControl(PlayerControl.class).right = isPressed;
+        }
+        if (name.equals("PlayerUp")) {
+            rootNode.getChild("Player").getControl(PlayerControl.class).up = isPressed;
+        }
+        if (name.equals("PlayerDown")) {
+            rootNode.getChild("Player").getControl(PlayerControl.class).down = isPressed;
+        }
+    }
+
+    @Override
+    public void onAnalog(String name, float value, float tpf) {
+        if (name.equals("ZoomIn") && cam.getLocation().getZ() / value > 4) {
+            cam.setLocation(new Vector3f(cam.getLocation().getX(),
+                    cam.getLocation().getY(),
+                    cam.getLocation().getZ() / value));
+        }
+        if (name.equals("ZoomOut") && cam.getLocation().getZ() * value < 20) {
+            cam.setLocation(new Vector3f(cam.getLocation().getX(),
+                    cam.getLocation().getY(),
+                    cam.getLocation().getZ() * value));
+        }
+    }
+
+    // Utility methods
+    public void setupInput() {
+        inputManager.addMapping("PlayerLeft", new KeyTrigger(KeyInput.KEY_A));
+        inputManager.addMapping("PlayerRight", new KeyTrigger(KeyInput.KEY_D));
+        inputManager.addMapping("PlayerUp", new KeyTrigger(KeyInput.KEY_W));
+        inputManager.addMapping("PlayerDown", new KeyTrigger(KeyInput.KEY_S));
+        inputManager.addListener(this, "PlayerLeft");
+        inputManager.addListener(this, "PlayerRight");
+        inputManager.addListener(this, "PlayerUp");
+        inputManager.addListener(this, "PlayerDown");
+
+        inputManager.addMapping("ZoomIn", new MouseAxisTrigger(MouseInput.AXIS_WHEEL, false));
+        inputManager.addMapping("ZoomOut", new MouseAxisTrigger(MouseInput.AXIS_WHEEL, true));
+        inputManager.addListener(this, "ZoomIn");
+        inputManager.addListener(this, "ZoomOut");
+    }
+
+    public void setupCamera() {
+        flyCam.setEnabled(false);
+
     }
 
     // Getters and Setters

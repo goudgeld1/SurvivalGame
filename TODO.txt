@@ -1,3 +1,6 @@
 TODO:
-  Player
-  Terain
+  Terrain generation
+  Add player animation
+  Add clothes
+  Add health etc.
+  
