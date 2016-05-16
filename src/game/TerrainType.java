@@ -1,8 +1,9 @@
 package game;
 
 public enum TerrainType {
-
-    GRASS,
+    STONE,
+    GRAVEL,
+    SAND,
     DIRT,
-    SAND
+    GRASS
 }

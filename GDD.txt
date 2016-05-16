@@ -13,7 +13,7 @@ GamePlayType: RealTime
 
 Genre: post-apocalyptic survival
 
-Setting: post-apocalyptic futuristic/medieval
+Setting: post-apocalyptic modern/futuristic
 
 Story: The year is 2083.
 	After a devastating war that destroyed civilization on planet earth,
@@ -28,13 +28,13 @@ StartState: Wake up... don't remember who you are.
 
 EndState: no end state (Open-world)
 
-Resources: Food, Drink, Fatigue, BodyTemperature, Optimism
+Resources: Hunger, Thirst, Fatigue, BodyTemperature, Optimism
   Lose:
-    Food:
+    Hunger:
       Constantly decreasing.
       Faster when doing physical labor.
       Faster when in cold temperatures.
-    Drink:
+    Thirst:
       Constantly decreasing.
       Faster when doing physical labor.
       Faster when in hot temperatures.
@@ -56,9 +56,9 @@ Resources: Food, Drink, Fatigue, BodyTemperature, Optimism
       When in darkness.
       When wounded.
   Gain:
-    Food:
+    Hunger:
       When eating.
-    Drink:
+    Thirst:
       When drinking.
     Fatigue:
       When sleeping.

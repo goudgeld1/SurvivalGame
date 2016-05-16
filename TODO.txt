@@ -1,8 +1,17 @@
 TODO:
-  Add player animation
-  Add clothes
-  Add health etc.
-  
 
-Done:
-  Terrain generation
+Working on diffrent appStates !!!
+Add hunger etc.
+Add basic HUD
+
+Generate masks per chunk
+
+Add working terrain tiles
+Add player animation
+Add clothes
+Add window icons
+Add menu
+Add player rotation + sprites
+Change projection matrix
+Generate the terrain masks as matrices
+  

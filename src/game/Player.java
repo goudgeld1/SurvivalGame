@@ -22,7 +22,7 @@ public class Player {
         geom.setMaterial(mat);
         node.attachChild(geom);
 
-        node.setLocalTranslation(1, 1, 1);
+        node.setLocalTranslation(1, 1, 0.0001f);
 
         rootNode.attachChild(node);
     }

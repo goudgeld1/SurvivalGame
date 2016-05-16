@@ -1,8 +1,14 @@
 MaterialDef Simple {
     MaterialParameters {
-        Texture2D FirstTexture;
-        Texture2D SecondTexture;
-        Texture2D MaskTexture;
+        Texture2D StoneTexture;
+        Texture2D GravelTexture;
+        Texture2D GravelMask;
+        Texture2D SandTexture;
+        Texture2D SandMask;
+        Texture2D DirtTexture;
+        Texture2D DirtMask;
+        Texture2D GrassTexture;
+        Texture2D GrassMask;
     }
     Technique {
         VertexShader GLSL100:   Shaders/Terrain.vert
