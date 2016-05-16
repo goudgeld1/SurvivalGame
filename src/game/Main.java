@@ -35,7 +35,7 @@ public class Main extends SimpleApplication {
         NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
         Nifty nifty = niftyDisplay.getNifty();
         
-        nifty.fromXml("Interface/StartMenu.xml", "start", startMenuAppState);s
+        nifty.fromXml("Interface/StartMenu.xml", "start", startMenuAppState);
         
         guiViewPort.addProcessor(niftyDisplay);
     }
