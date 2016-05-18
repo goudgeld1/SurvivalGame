@@ -11,7 +11,6 @@ import game.states.StartMenuAppState;
 public class Main extends SimpleApplication {
 
     public static final String VERSION = "A0.0.1";
-    private StartMenuAppState startMenuAppState;
 
     @Override
     public void simpleInitApp() {
@@ -28,14 +27,17 @@ public class Main extends SimpleApplication {
         flyCam.setEnabled(false);
 
         // Create and attatch the StartMenuAppState
-        startMenuAppState = new StartMenuAppState();
+//        StartMenuAppState startMenuAppState = new StartMenuAppState();
+        GameAppState gameAppState = new GameAppState();
 
-        stateManager.attach(startMenuAppState);
+//        stateManager.attach(startMenuAppState);
+        stateManager.attach(gameAppState);
         
         NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(assetManager, inputManager, audioRenderer, guiViewPort);
-        Nifty nifty = niftyDisplay.getNifty();
+        MainManager.nifty = niftyDisplay.getNifty();
         
-        nifty.fromXml("Interface/StartMenu.xml", "start", startMenuAppState);
+//        MainManager.nifty.fromXml("Interface/StartMenu.xml", "start", startMenuAppState);
+        MainManager.nifty.fromXml("Interface/Hud.xml", "hud", gameAppState);
         
         guiViewPort.addProcessor(niftyDisplay);
     }

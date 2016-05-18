@@ -13,7 +13,7 @@ public class Player {
 
     public static void create(Node rootNode) {
         Node node = new Node("Player");
-        Geometry geom = new Geometry("Player", new Quad(1f, 1f));
+        Geometry geom = new Geometry("PlayerGeom", new Quad(1f, 1f));
 
         Material mat = MaterialManager.loadMaterial(gender);
         mat.getAdditionalRenderState().setBlendMode(BlendMode.Alpha);
@@ -22,7 +22,7 @@ public class Player {
         geom.setMaterial(mat);
         node.attachChild(geom);
 
-        node.setLocalTranslation(1, 1, 0.0001f);
+        geom.setLocalTranslation(-0.5f, 0, 0.0001f);
 
         rootNode.attachChild(node);
     }

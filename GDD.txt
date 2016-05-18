@@ -28,7 +28,7 @@ StartState: Wake up... don't remember who you are.
 
 EndState: no end state (Open-world)
 
-Resources: Hunger, Thirst, Fatigue, BodyTemperature, Optimism
+Resources: Hunger, Thirst, Energy, BodyTemperature, Optimism
   Lose:
     Hunger:
       Constantly decreasing.
@@ -38,7 +38,7 @@ Resources: Hunger, Thirst, Fatigue, BodyTemperature, Optimism
       Constantly decreasing.
       Faster when doing physical labor.
       Faster when in hot temperatures.
-    Fatigue:
+    Energy:
       Constantly decreasing.
       Faster when doing physical labor.
       Faster when hungry.
@@ -60,7 +60,7 @@ Resources: Hunger, Thirst, Fatigue, BodyTemperature, Optimism
       When eating.
     Thirst:
       When drinking.
-    Fatigue:
+    Energy:
       When sleeping.
       When resting.
     BodyTemperature:

@@ -33,10 +33,10 @@ public class StartMenuAppState extends AbstractAppState implements ScreenControl
         stateNode = new Node("StartMenuState");
         this.app.getRootNode().attachChild(stateNode);
         
+        startGame();
         
-        
-        app.getInputManager().addMapping("Next", new KeyTrigger(KeyInput.KEY_N));
-        app.getInputManager().addListener(this, "Next");
+        //app.getInputManager().addMapping("Next", new KeyTrigger(KeyInput.KEY_N));
+        //app.getInputManager().addListener(this, "Next");
         
     }
 

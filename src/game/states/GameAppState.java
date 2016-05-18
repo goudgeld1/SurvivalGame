@@ -10,11 +10,14 @@ import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.AnalogListener;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseAxisTrigger;
+import com.jme3.math.FastMath;
+import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
+import game.Gui;
 import game.Player;
 import game.controls.PlayerControl;
 import game.Terrain;
@@ -25,6 +28,8 @@ public class GameAppState extends AbstractAppState implements ScreenController, 
     private Screen screen;
     private SimpleApplication app;
     private Node stateNode;
+    
+    public long randomSeed = 25665;
 
     @Override
     public void initialize(AppStateManager stateManager, Application application) {
@@ -32,6 +37,8 @@ public class GameAppState extends AbstractAppState implements ScreenController, 
         app = (SimpleApplication) application;
         stateNode = new Node("GameState");
         app.getRootNode().attachChild(stateNode);
+        
+        FastMath.rand.setSeed(randomSeed);
 
         // Create a player
         Player.create(stateNode);
@@ -42,9 +49,6 @@ public class GameAppState extends AbstractAppState implements ScreenController, 
 
         // Generate terrain
         Terrain.setup(stateNode);
-        Terrain.generateChunk(-1, -1);
-        Terrain.generateChunk(-1, 0);
-        Terrain.generateChunk(0, -1);
         Terrain.generateChunk(0, 0);
 
     }
@@ -74,11 +78,22 @@ public class GameAppState extends AbstractAppState implements ScreenController, 
     // Note that update is only called while the state is both attached and enabled.
     @Override
     public void update(float tpf) {
-        // do the following while game is RUNNING
-        //this.app.getRootNode().getChild("blah").scale(tpf); // modify scene graph...
-        //x.setUserData(...);                                 // call some methods...
+        // Do the following while game is RUNNING
+        Terrain.checkChunkGeneration();
+        
+        // Setup the GUI
+        Gui.setWidth("hunger", (int) stateNode.getChild("Player").getControl(PlayerControl.class).hunger / 10 + "px");
+        Gui.setText("hungerText", Integer.toString((int) stateNode.getChild("Player").getControl(PlayerControl.class).hunger));
+        
+        Gui.setWidth("thirst", (int) stateNode.getChild("Player").getControl(PlayerControl.class).thirst / 10 + "px");
+        Gui.setText("thirstText", Integer.toString((int) stateNode.getChild("Player").getControl(PlayerControl.class).thirst));
+        
+        Gui.setWidth("energy", (int) stateNode.getChild("Player").getControl(PlayerControl.class).energy / 10 + "px");
+        Gui.setText("energyText", Integer.toString((int) stateNode.getChild("Player").getControl(PlayerControl.class).energy));
+
+        nifty.getScreen("hud").findElementByName("infoBar").layoutElements();
     }
-    
+
     @Override
     public void bind(Nifty nifty, Screen screen) {
         this.nifty = nifty;
@@ -114,12 +129,12 @@ public class GameAppState extends AbstractAppState implements ScreenController, 
 
     @Override
     public void onAnalog(String name, float value, float tpf) {
-        if (name.equals("ZoomIn") && app.getCamera().getLocation().getZ() / value > 4) {
+        if (name.equals("ZoomIn") && app.getCamera().getLocation().getZ() / value > 2) {
             app.getCamera().setLocation(new Vector3f(app.getCamera().getLocation().getX(),
                     app.getCamera().getLocation().getY(),
                     app.getCamera().getLocation().getZ() / value));
         }
-        if (name.equals("ZoomOut") && app.getCamera().getLocation().getZ() * value < 20) {
+        if (name.equals("ZoomOut") && app.getCamera().getLocation().getZ() * value < 200) {
             app.getCamera().setLocation(new Vector3f(app.getCamera().getLocation().getX(),
                     app.getCamera().getLocation().getY(),
                     app.getCamera().getLocation().getZ() * value));
@@ -143,8 +158,8 @@ public class GameAppState extends AbstractAppState implements ScreenController, 
         app.getInputManager().addListener(this, "ZoomIn");
         app.getInputManager().addListener(this, "ZoomOut");
     }
-    
-    public void printHunger(){
+
+    public void printHunger() {
         System.out.println(stateNode.getChild("Player").getControl(PlayerControl.class).hunger);
     }
 }

@@ -1,10 +1,6 @@
 TODO:
 
-Working on diffrent appStates !!!
-Add hunger etc.
-Add basic HUD
-
-Generate masks per chunk
+infinit terrain
 
 Add working terrain tiles
 Add player animation
@@ -13,5 +9,4 @@ Add window icons
 Add menu
 Add player rotation + sprites
 Change projection matrix
-Generate the terrain masks as matrices
   
