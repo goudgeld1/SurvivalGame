@@ -1,5 +1,6 @@
-package game;
+package game.util;
 
+import game.util.MainManager;
 import com.jme3.material.Material;
 import com.jme3.texture.Texture;
 import com.jme3.texture.Texture2D;

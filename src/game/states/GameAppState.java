@@ -10,8 +10,6 @@ import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.AnalogListener;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.input.controls.MouseAxisTrigger;
-import com.jme3.math.FastMath;
-import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 import de.lessvoid.nifty.Nifty;
@@ -28,8 +26,6 @@ public class GameAppState extends AbstractAppState implements ScreenController, 
     private Screen screen;
     private SimpleApplication app;
     private Node stateNode;
-    
-    public long randomSeed = 25665;
 
     @Override
     public void initialize(AppStateManager stateManager, Application application) {
@@ -37,20 +33,16 @@ public class GameAppState extends AbstractAppState implements ScreenController, 
         app = (SimpleApplication) application;
         stateNode = new Node("GameState");
         app.getRootNode().attachChild(stateNode);
-        
-        FastMath.rand.setSeed(randomSeed);
-
-        // Create a player
-        Player.create(stateNode);
-        stateNode.getChild("Player").addControl(new PlayerControl());
-
-        // Setup the input
-        setupInput();
 
         // Generate terrain
         Terrain.setup(stateNode);
         Terrain.generateChunk(0, 0);
+        
+        // Create a player
+        Player.create(stateNode);
 
+        // Setup the input
+        setupInput();
     }
 
     @Override
@@ -79,7 +71,6 @@ public class GameAppState extends AbstractAppState implements ScreenController, 
     @Override
     public void update(float tpf) {
         // Do the following while game is RUNNING
-        Terrain.checkChunkGeneration();
         
         // Setup the GUI
         Gui.setWidth("hunger", (int) stateNode.getChild("Player").getControl(PlayerControl.class).hunger / 10 + "px");
@@ -129,12 +120,12 @@ public class GameAppState extends AbstractAppState implements ScreenController, 
 
     @Override
     public void onAnalog(String name, float value, float tpf) {
-        if (name.equals("ZoomIn") && app.getCamera().getLocation().getZ() / value > 2) {
+        if (name.equals("ZoomIn") && app.getCamera().getLocation().getZ() / value > 4) {
             app.getCamera().setLocation(new Vector3f(app.getCamera().getLocation().getX(),
                     app.getCamera().getLocation().getY(),
                     app.getCamera().getLocation().getZ() / value));
         }
-        if (name.equals("ZoomOut") && app.getCamera().getLocation().getZ() * value < 200) {
+        if (name.equals("ZoomOut") && app.getCamera().getLocation().getZ() * value < 999) {
             app.getCamera().setLocation(new Vector3f(app.getCamera().getLocation().getX(),
                     app.getCamera().getLocation().getY(),
                     app.getCamera().getLocation().getZ() * value));

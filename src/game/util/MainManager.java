@@ -1,4 +1,4 @@
-package game;
+package game.util;
 
 import com.jme3.asset.AssetManager;
 import com.jme3.input.FlyByCamera;

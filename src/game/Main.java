@@ -1,12 +1,11 @@
 package game;
 
+import game.util.MainManager;
 import com.jme3.app.SimpleApplication;
 import com.jme3.math.ColorRGBA;
 import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.system.AppSettings;
-import de.lessvoid.nifty.Nifty;
 import game.states.GameAppState;
-import game.states.StartMenuAppState;
 
 public class Main extends SimpleApplication {
 

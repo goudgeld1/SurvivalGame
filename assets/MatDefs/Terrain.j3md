@@ -1,7 +1,7 @@
 MaterialDef Simple {
     MaterialParameters {
+        Texture2D WaterTexture;
         Texture2D StoneTexture;
-        Texture2D GravelTexture;
         Texture2D SandTexture;
         Texture2D DirtTexture;
         Texture2D GrassTexture;

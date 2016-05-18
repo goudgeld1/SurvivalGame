@@ -1,12 +1,14 @@
 TODO:
 
-infinit terrain
-
+working on infinite terrain
 Add working terrain tiles
+
 Add player animation
 Add clothes
 Add window icons
 Add menu
 Add player rotation + sprites
 Change projection matrix
+
+Inplement lama riding
   
